@@ -39,7 +39,28 @@ function QuestionWidget({ question, totalQuestions, questionsIdex }) {
       <Widget.Content>
         <h2>{question.title}</h2>
         <p>{question.description}</p>
-        <Button>Confirmar</Button>
+        {/*
+        {question.alternatives.map((alternative) => {
+          console.log('pare de reclamar');
+          return alternative;
+        })} */}
+
+        <form>
+          {question.alternatives.map((alternative, alternativeIndex) => {
+            const alternativeId = `alternative__${alternativeIndex}`;
+            return (
+              <label htmlFor={alternativeId}>
+                {alternative}
+                <input id={alternativeId} type="radio" />
+              </label>
+            );
+          })}
+
+          {/* {JSON.stringify(question.alternatives)} */}
+          {/* <pre>{JSON.stringify(question, null, 4)}</pre> */}
+
+          <Button>Confirmar</Button>
+        </form>
       </Widget.Content>
 
     </Widget>
@@ -48,7 +69,7 @@ function QuestionWidget({ question, totalQuestions, questionsIdex }) {
 
 export default function QuizPage() {
   const totalQuestions = db.questions.length;
-  const questionsIdex = 1;
+  const questionsIdex = 0;
   const question = db.questions[questionsIdex];
   return (
     <QuizBackground backgroundImage={db.bg}>
