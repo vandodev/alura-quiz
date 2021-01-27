@@ -25,7 +25,9 @@ function LoadingWidget() {
   );
 }
 
-function QuestionWidget({ question, totalQuestions, questionsIdex }) {
+function QuestionWidget({
+  question, totalQuestions, questionsIdex, onSubmit,
+}) {
   const questionId = `question__${questionsIdex}`;
   return (
     <Widget>
@@ -40,13 +42,13 @@ function QuestionWidget({ question, totalQuestions, questionsIdex }) {
       <Widget.Content>
         <h2>{question.title}</h2>
         <p>{question.description}</p>
-        {/*
-        {question.alternatives.map((alternative) => {
-          console.log('pare de reclamar');
-          return alternative;
-        })} */}
 
-        <form>
+        <form
+          onSubmit={(infosDoEvento) => {
+            infosDoEvento.preventDefault();
+            onSubmit();
+          }}
+        >
           {question.alternatives.map((alternative, alternativeIndex) => {
             const alternativeId = `alternative__${alternativeIndex}`;
             return (
@@ -64,10 +66,7 @@ function QuestionWidget({ question, totalQuestions, questionsIdex }) {
             );
           })}
 
-          {/* {JSON.stringify(question.alternatives)} */}
-          {/* <pre>{JSON.stringify(question, null, 4)}</pre> */}
-
-          <Button>Confirmar</Button>
+          <Button type="submit">Confirmar</Button>
         </form>
       </Widget.Content>
 
@@ -84,8 +83,9 @@ const screenStates = {
 export default function QuizPage() {
   const [screenState, setScreenState] = React.useState(screenStates.LOADING);
   const totalQuestions = db.questions.length;
-  const questionsIdex = 0;
-  const question = db.questions[questionsIdex];
+  const [currentQuestion, setCurrentQuestion] = React.useState(0);
+  const questionIndex = currentQuestion;
+  const question = db.questions[questionIndex];
 
   React.useEffect(() => {
     // fetch() ...
@@ -94,6 +94,15 @@ export default function QuizPage() {
     }, 1 * 1000);
   // nasce === didMount
   }, []);
+
+  function handleSubmitQuiz() {
+    const nextQuestion = questionIndex + 1;
+    if (nextQuestion < totalQuestions) {
+      setCurrentQuestion(nextQuestion);
+    } else {
+      setScreenState(screenStates.RESULT);
+    }
+  }
 
   return (
     <QuizBackground backgroundImage={db.bg}>
@@ -109,8 +118,9 @@ export default function QuizPage() {
         {screenState === screenStates.QUIZ && (
           <QuestionWidget
             question={question}
-            questionsIdex={questionsIdex}
+            questionIndex={questionIndex}
             totalQuestions={totalQuestions}
+            onSubmit={handleSubmitQuiz}
           />
         )}
 
