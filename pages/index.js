@@ -9,6 +9,7 @@ import QuizBackground from '../src/components/QuizBackground';
 import Widget from '../src/components/Widget';
 import Footer from '../src/components/Footer';
 import GitHubCorner from '../src/components/GitHubCorner';
+import Input from '../src/components/Input';
 import QuizContainer from '../src/components/QuizContainer';
 
 export default function Home() {
@@ -39,7 +40,7 @@ export default function Home() {
               console.log('Fazendo uma submissão por meio do react');
             }}
             >
-              <input
+              <Input
                 name="nomeDoUsuario"
                 onChange={(infosDoEvento) => setName(infosDoEvento.target.value)}
                 placeholder="Diz ai seu nome"
