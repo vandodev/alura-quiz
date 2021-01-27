@@ -29,7 +29,8 @@ function LoadingWidget() {
 }
 
 export default function QuizPage() {
-  console.log(db.questions);
+  console.log('Pergunta criada: ', db.questions);
+  const question = db.questions[0];
   return (
     <QuizBackground backgroundImage={db.bg}>
 
@@ -47,11 +48,11 @@ export default function QuizPage() {
             <h1>Pergunta 1 de {`${db.questions.length}`}</h1>
           </Widget.Header>
 
-          <img src="https://placehold.it/400x400" alt="Descrição" style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
+          <img src={question.image} alt="Descrição" style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
 
           <Widget.Content>
-            <h2>Titulo</h2>
-            <p>Descrição</p>
+            <h2>{question.title}</h2>
+            <p>{question.description}</p>
             <Button>Confirmar</Button>
           </Widget.Content>
 
