@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import db from '../db.json';
 
 import QuizLogo from '../src/components/QuizLogo';
@@ -11,6 +12,8 @@ import GitHubCorner from '../src/components/GitHubCorner';
 import QuizContainer from '../src/components/QuizContainer';
 
 export default function Home() {
+  const router = useRouter();
+  const [name, setName] = React.useState('');
   return (
     <QuizBackground backgroundImage={db.bg}>
 
@@ -30,6 +33,22 @@ export default function Home() {
 
           <Widget.Content>
             <p>lorem ipsum dolor sit amet...</p>
+            <form onSubmit={function (infosDoEvento) {
+              infosDoEvento.preventDefault();
+              router.push(`/quiz?name=${name}`);
+              console.log('Fazendo uma submissão por meio do react');
+            }}
+            >
+              <input
+                name="nomeDoUsuario"
+                onChange={(infosDoEvento) => setName(infosDoEvento.target.value)}
+                placeholder="Diz ai seu nome"
+                value={name}
+              />
+              <button type="submit" disabled={name.length === 0}>
+                {`Jogar ${name}`}
+              </button>
+            </form>
           </Widget.Content>
 
         </Widget>
