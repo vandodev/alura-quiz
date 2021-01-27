@@ -25,12 +25,13 @@ function LoadingWidget() {
   );
 }
 
-function QuestionWidget({ question }) {
+function QuestionWidget({ question, totalQuestions, questionsIdex }) {
   return (
     <Widget>
 
       <Widget.Header>
-        <h1>Pergunta 1 de {`${db.questions.length}`}</h1>
+        {/* <h3>Pergunta {questionsIdex + 1} de {`${totalQuestions}`}</h3> */}
+        <h3> {`Pergunta ${questionsIdex + 1} de ${totalQuestions}`}</h3>
       </Widget.Header>
 
       <img src={question.image} alt="Descrição" style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
@@ -46,8 +47,9 @@ function QuestionWidget({ question }) {
 }
 
 export default function QuizPage() {
-  console.log('Pergunta criada: ', db.questions);
-  const question = db.questions[0];
+  const totalQuestions = db.questions.length;
+  const questionsIdex = 1;
+  const question = db.questions[questionsIdex];
   return (
     <QuizBackground backgroundImage={db.bg}>
 
@@ -59,7 +61,12 @@ export default function QuizPage() {
 
         <QuizLogo />
 
-        <QuestionWidget question={question} />
+        <QuestionWidget
+          question={question}
+          questionsIdex={questionsIdex}
+          totalQuestions={totalQuestions}
+
+        />
 
         <LoadingWidget />
 
