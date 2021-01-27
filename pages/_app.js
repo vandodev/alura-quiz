@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     flex-direction: column;
     font-family: 'Lato', sans-serif;
-    // Deixa branco no começo
+    /* Deixa branco no começo*/
     color: ${({ theme }) => theme.colors.contrastText};
   }
   html, body {
@@ -31,8 +31,9 @@ const theme = db.theme;
 export default function App({ Component, pageProps }) {
   return (
     <>
-      <GlobalStyle />
+      
       <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <Component {...pageProps} />
       </ThemeProvider>
     </>
