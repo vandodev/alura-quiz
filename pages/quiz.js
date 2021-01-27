@@ -75,7 +75,15 @@ function QuestionWidget({ question, totalQuestions, questionsIdex }) {
   );
 }
 
+const screenStates = {
+  QUIZ: 'QUIZ',
+  LOADING: 'LOADING',
+  RESULT: 'RESULT',
+};
+
 export default function QuizPage() {
+  const screenState = 'QUIZ';
+  // const screenState = screenStates.QUIZ;
   const totalQuestions = db.questions.length;
   const questionsIdex = 0;
   const question = db.questions[questionsIdex];
@@ -90,14 +98,17 @@ export default function QuizPage() {
 
         <QuizLogo />
 
-        <QuestionWidget
-          question={question}
-          questionsIdex={questionsIdex}
-          totalQuestions={totalQuestions}
+        {screenState === screenStates.QUIZ && (
+          <QuestionWidget
+            question={question}
+            questionsIdex={questionsIdex}
+            totalQuestions={totalQuestions}
+          />
+        )}
 
-        />
+        {screenState === screenStates.LOADING && <LoadingWidget />}
 
-        <LoadingWidget />
+        {screenState === screenStates.RESULT && <div>Você acertou x questões, parabens</div>}
 
         <Footer />
       </QuizContainer>
