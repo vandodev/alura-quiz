@@ -26,6 +26,7 @@ function LoadingWidget() {
 }
 
 function QuestionWidget({ question, totalQuestions, questionsIdex }) {
+  const questionId = `question__${questionsIdex}`;
   return (
     <Widget>
 
@@ -49,10 +50,17 @@ function QuestionWidget({ question, totalQuestions, questionsIdex }) {
           {question.alternatives.map((alternative, alternativeIndex) => {
             const alternativeId = `alternative__${alternativeIndex}`;
             return (
-              <label htmlFor={alternativeId}>
+              <Widget.Topic htmlFor={alternativeId} as="label">
+
+                <input
+                  id={alternativeId}
+                  name={questionId}
+                  type="radio"
+                  // style={{ display: 'none' }}
+                />
+
                 {alternative}
-                <input id={alternativeId} type="radio" />
-              </label>
+              </Widget.Topic>
             );
           })}
 
