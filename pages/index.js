@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import db from '../db.json';
 
 import QuizLogo from '../src/components/QuizLogo';
+import QuizBackground from '../src/components/QuizBackground';
 import Widget from '../src/components/Widget';
 import Footer from '../src/components/Footer';
+import GitHubCorner from '../src/components/GitHubCorner'
 
 const BackgroundImage = styled.div`
   background-image:url(${db.bg});
@@ -54,6 +56,7 @@ export default function Home() {
 
         <Footer />
       </QuizContainer>
+      <GitHubCorner projectUrl="https://github.com/omariosouto" />
     </QuizBackground>
   );
 }
