@@ -9,8 +9,9 @@ import QuizBackground from '../src/components/QuizBackground';
 import Widget from '../src/components/Widget';
 import Footer from '../src/components/Footer';
 import GitHubCorner from '../src/components/GitHubCorner';
-import Input from '../src/components/Input';
 import QuizContainer from '../src/components/QuizContainer';
+import Input from '../src/components/Input';
+import Button from '../src/components/Button';
 
 export default function Home() {
   const router = useRouter();
@@ -46,9 +47,9 @@ export default function Home() {
                 placeholder="Diz ai seu nome"
                 value={name}
               />
-              <button type="submit" disabled={name.length === 0}>
-                {`Jogar ${name}`}
-              </button>
+              <Button type="submit" disabled={name.length === 0}>
+                Jogar
+              </Button>
             </form>
           </Widget.Content>
 
