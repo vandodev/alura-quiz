@@ -28,7 +28,7 @@ export const QuizContainer = styled.div`
 
 export default function Home() {
   return (
-    <BackgroundImage>
+    <QuizBackground backgroundImage={db.bg}>
       <QuizContainer>
 
         <QuizLogo />
@@ -54,6 +54,6 @@ export default function Home() {
 
         <Footer />
       </QuizContainer>
-    </BackgroundImage>
+    </QuizBackground>
   );
 }
