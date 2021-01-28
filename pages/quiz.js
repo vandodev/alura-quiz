@@ -24,6 +24,24 @@ function LoadingWidget() {
     </Widget>
   );
 }
+function ResultWidget({ results }) {
+  return (
+    <Widget>
+      <Widget.Header>
+        Tela de resultado
+      </Widget.Header>
+
+      <Widget.Content>
+        <p>Você acertou x perguntas</p>
+        <ul>
+          {results.map((result) => (
+            <li>#01 Resultado:{result === true ? 'Acertou' : 'Errou'}</li>
+          ))}
+        </ul>
+      </Widget.Content>
+    </Widget>
+  );
+}
 
 function QuestionWidget({
   question, totalQuestions, questionsIdex, onSubmit,
@@ -94,7 +112,8 @@ const screenStates = {
 };
 
 export default function QuizPage() {
-  const [screenState, setScreenState] = React.useState(screenStates.LOADING);
+  const [screenState, setScreenState] = React.useState(screenStates.RESULT);
+  const [results, setResults] = React.useState([true, false, true]);
   const totalQuestions = db.questions.length;
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
   const questionIndex = currentQuestion;
@@ -103,7 +122,7 @@ export default function QuizPage() {
   React.useEffect(() => {
     // fetch() ...
     setTimeout(() => {
-      setScreenState(screenStates.QUIZ);
+      // setScreenState(screenStates.QUIZ);
     }, 1 * 1000);
   // nasce === didMount
   }, []);
@@ -138,8 +157,8 @@ export default function QuizPage() {
         )}
 
         {screenState === screenStates.LOADING && <LoadingWidget />}
-
-        {screenState === screenStates.RESULT && <div>Você acertou x questões, parabens</div>}
+        {screenState === screenStates.RESULT && <ResultWidget results={results} />}
+        {/* {screenState === screenStates.RESULT && <div>Você acertou x questões, parabens</div>} */}
 
         <Footer />
       </QuizContainer>
