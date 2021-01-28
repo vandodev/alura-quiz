@@ -28,7 +28,9 @@ function LoadingWidget() {
 function QuestionWidget({
   question, totalQuestions, questionsIdex, onSubmit,
 }) {
+  const [selectedAlternative, setSelectedAlternative] = React.useState(undefined);
   const questionId = `question__${questionsIdex}`;
+  const isCorrect = selectedAlternative === question.answer;
   return (
     <Widget>
 
@@ -52,12 +54,13 @@ function QuestionWidget({
           {question.alternatives.map((alternative, alternativeIndex) => {
             const alternativeId = `alternative__${alternativeIndex}`;
             return (
-              <Widget.Topic htmlFor={alternativeId} as="label">
+              <Widget.Topic htmlFor={alternativeId} as="label" key={alternativeId}>
 
                 <input
                   id={alternativeId}
                   name={questionId}
                   type="radio"
+                  onChange={() => setSelectedAlternative(alternativeIndex)}
                   // style={{ display: 'none' }}
                 />
 
@@ -67,6 +70,9 @@ function QuestionWidget({
           })}
 
           <Button type="submit">Confirmar</Button>
+          {/* <p>selectedAlternative:{`${selectedAlternative}`}</p> */}
+          {isCorrect && <p>Você acertou!</p>}
+          {!isCorrect && <p>Você errou!</p>}
         </form>
       </Widget.Content>
 
