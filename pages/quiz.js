@@ -32,6 +32,7 @@ function QuestionWidget({
   const [isQuestionSubmited, setIsQuestionSubmited] = React.useState(false);
   const questionId = `question__${questionsIdex}`;
   const isCorrect = selectedAlternative === question.answer;
+  const hasAlternativeSelected = selectedAlternative !== undefined;
   return (
     <Widget>
 
@@ -54,6 +55,7 @@ function QuestionWidget({
             setTimeout(() => {
               onSubmit();
               setIsQuestionSubmited(false);
+              setSelectedAlternative(undefined);
             }, 3 * 1000);
           }}
         >
@@ -75,7 +77,7 @@ function QuestionWidget({
             );
           })}
 
-          <Button type="submit">Confirmar</Button>
+          <Button type="submit" disabled={!hasAlternativeSelected}>Confirmar</Button>
           {isQuestionSubmited && isCorrect && <p>Você acertou!</p>}
           {isQuestionSubmited && !isCorrect && <p>Você errou!</p>}
         </form>
