@@ -32,7 +32,14 @@ function ResultWidget({ results }) {
       </Widget.Header>
 
       <Widget.Content>
-        <p>Você acertou x perguntas</p>
+        <p>Você acertou {' '} {results.reduce((somatoriaAtual, resultAtual) => {
+          const isAcerto = resultAtual === true;
+          if (isAcerto) {
+            return somatoriaAtual + 1;
+          }
+          return somatoriaAtual;
+        }, 0)} perguntas
+        </p>
         <ul>
           {results.map((result) => (
             <li>#01 Resultado:{result === true ? 'Acertou' : 'Errou'}</li>
